@@ -1,6 +1,7 @@
-import typescript from "@rollup/plugin-typescript";
-import commonjs from "@rollup/plugin-commonjs";
-import nodeResolve from "@rollup/plugin-node-resolve";
+import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import { terser } from 'rollup-plugin-terser';
 
 export default [
     {
@@ -11,18 +12,21 @@ export default [
                 dir: './dist',
                 format: 'es',
                 sourcemap: false,
-            }
+            },
         ],
         plugins: [
             typescript({
-                outDir: 'dist'
+                outDir: 'dist',
             }),
             commonjs({
-                extensions: ['.js', '.ts']
+                extensions: ['.js', '.ts'],
             }),
             nodeResolve({
-                browser: false
+                browser: false,
             }),
-        ]
-    }
-]
+            terser({
+                mangle: true,
+            }),
+        ],
+    },
+];

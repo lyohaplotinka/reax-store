@@ -1,5 +1,12 @@
 # Reax-store
-### React state management with Redux, but similar to Vuex 
+### Tiny (~700b) react-redux add-on for state management similar to Vuex 
+
+<p align="left">
+  <a href="https://bundlephobia.com/result?p=reax-store@0.0.5"><img src="https://badgen.net/bundlephobia/minzip/reax-store@latest" alt="minzipped size"></a>
+  <a href=""><img src="https://badgen.net/npm/v/reax-store" alt="npm-package"></a>
+</p>
+
+### [CODE SANDBOX DEMO](https://codesandbox.io/s/reax-store-demo-kdd73?file=/src/App.js)
 
 I really love Vuex and find it the most convenient library for 
 managing application state. This repository is a lightweight 
