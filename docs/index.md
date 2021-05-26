@@ -62,6 +62,10 @@ After that you can use Reax in your components like this:
 import store from "./store";
 
 function App() {
+  // Please note: unlike Vuex, we must call 
+  // the getter function, since in Reax this 
+  // is just a wrapper over the react-redux 
+  // useSelector hook. 
   const count = store.getters.getCount()
   
   return (
