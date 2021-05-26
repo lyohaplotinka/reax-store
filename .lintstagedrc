@@ -1,0 +1,3 @@
+{
+    "{src,provider,useReax,__tests__}/**/*.{js,ts,tsx,jsx}": "npm run lint"
+}

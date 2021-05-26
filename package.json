@@ -1,0 +1,67 @@
+{
+    "name": "reax-store",
+    "version": "0.0.3",
+    "description": "React state management with Redux, but similar to Vuex",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lyohaplotinka/reax-store.git"
+    },
+    "keywords": [
+        "javascript",
+        "spa",
+        "store",
+        "redux",
+        "vuex",
+        "react",
+        "wrapper"
+    ],
+    "scripts": {
+        "build": "rollup -c",
+        "dev": "rollup -c -w",
+        "lint": "eslint '{src,provider,useReax,__tests__}/**/*.{js,ts,tsx}' --quiet --fix",
+        "test": "jest",
+        "prepare": "husky install",
+        "lint-staged": "lint-staged"
+    },
+    "author": "Lyoha Plotinka",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lyohaplotinka/reax-store/issues"
+    },
+    "homepage": "https://lyohaplotinka.github.io/reax-store/",
+    "devDependencies": {
+        "@babel/core": "^7.14.3",
+        "@babel/preset-env": "^7.14.2",
+        "@rollup/plugin-babel": "^5.3.0",
+        "@rollup/plugin-commonjs": "^19.0.0",
+        "@rollup/plugin-node-resolve": "^13.0.0",
+        "@rollup/plugin-typescript": "^8.2.1",
+        "@types/react-redux": "^7.1.16",
+        "@types/redux": "^3.6.0",
+        "@typescript-eslint/eslint-plugin": "^4.25.0",
+        "@typescript-eslint/parser": "^4.25.0",
+        "babel-jest": "^27.0.1",
+        "eslint": "^7.27.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "husky": "^6.0.0",
+        "jest": "^27.0.1",
+        "lint-staged": "^11.0.0",
+        "prettier": "^2.3.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-redux": "^7.2.4",
+        "redux": "^4.1.0",
+        "rollup": "^2.49.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "tslib": "^2.2.0",
+        "typescript": "^4.2.4"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    }
+}
