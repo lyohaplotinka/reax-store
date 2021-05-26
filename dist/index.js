@@ -1,1 +1,81 @@
-import{combineReducers as e,createStore as t}from"redux";import{useSelector as r}from"react-redux";const o=(e,t)=>(r=e.state,o)=>t[o.type]?t[o.type](r,o.payload):r;function n(n){const c={},s={};let u={},a={};const l=(e,t="root")=>{const{moduleReducer:n,moduleGetters:l,moduleActions:d}=function(e,t="root"){const n={},c={},s={},u="root"===t?"":t+"/";return Object.entries(e.mutations).forEach((([e,t])=>{const r="A_"+e.toUpperCase(),{action:o,actionHandler:s}=(a=r,l=t,{action:e=>({type:a,payload:e}),actionHandler:(e,t=null)=>{const r={...e};return l(r,t),r}});var a,l;n[u+e]=o,c[r]=s})),Object.entries(e.getters).forEach((([e,o])=>{s[u+e]=()=>r((e=>o(e[t])))})),{moduleReducer:o(e,c),moduleGetters:s,moduleActions:n}}(e,t);s[t]=e.state,c[t]=n,u={...u,...l},a={...a,...d}};l(n),n.modules&&Object.entries(n.modules).forEach((([e,t])=>l(t,e)));const d=e(c),i=t(d,s),p={reduxStore:i,commit:(e,t=null)=>i.dispatch(a[e](t)),getters:u,registerModule:(t,r)=>{l(r,t),i.replaceReducer(e(c)),p.getters={...p.getters,...u}},unregisterModule:t=>{delete c[t],i.replaceReducer(e(c));for(const e in p.getters)Object.prototype.hasOwnProperty.call(p.getters,e)&&e.includes(t)&&delete p.getters[e]}};return Object.defineProperty(p,"state",{get(){const{root:e,...t}=i.getState();return{...e,...t}},enumerable:!0}),p}export{n as createReaxStore};
+import { combineReducers, createStore } from 'redux';
+import { useSelector } from 'react-redux';
+
+const createAction = (type, func) => ({
+    action: (payload) => ({ type, payload }),
+    actionHandler: (state, payload = null) => {
+        const stateCopy = { ...state };
+        func(stateCopy, payload);
+        return stateCopy;
+    },
+});
+const createReducer = (storeDescriptor, handlers) => (state = storeDescriptor.state, action) => handlers[action.type]
+    ? handlers[action.type](state, action.payload)
+    : state;
+function createStoreModule(storeDescriptor, moduleName = 'root') {
+    const actions = {};
+    const handlers = {};
+    const getters = {};
+    const modulePrefix = moduleName === 'root' ? '' : moduleName + '/';
+    Object.entries(storeDescriptor.mutations).forEach(([mutationKey, mutationFunction]) => {
+        const actionType = 'A_' + mutationKey.toUpperCase();
+        const { action, actionHandler } = createAction(actionType, mutationFunction);
+        actions[modulePrefix + mutationKey] = action;
+        handlers[actionType] = actionHandler;
+    });
+    Object.entries(storeDescriptor.getters).forEach(([getterKey, getterFunction]) => {
+        getters[modulePrefix + getterKey] = () => useSelector((store) => getterFunction(store[moduleName]));
+    });
+    return {
+        moduleReducer: createReducer(storeDescriptor, handlers),
+        moduleGetters: getters,
+        moduleActions: actions,
+    };
+}
+function createReaxStore(storeDescriptor) {
+    const reducersObject = {};
+    const initialStateObject = {};
+    let getters = {};
+    let actions = {};
+    const parseModule = (module, moduleName = 'root') => {
+        const { moduleReducer, moduleGetters, moduleActions } = createStoreModule(module, moduleName);
+        initialStateObject[moduleName] = module.state;
+        reducersObject[moduleName] = moduleReducer;
+        getters = { ...getters, ...moduleGetters };
+        actions = { ...actions, ...moduleActions };
+    };
+    parseModule(storeDescriptor);
+    storeDescriptor.modules &&
+        Object.entries(storeDescriptor.modules).forEach(([moduleName, storeDescriptor]) => parseModule(storeDescriptor, moduleName));
+    const reducers = combineReducers(reducersObject);
+    const reduxStore = createStore(reducers, initialStateObject);
+    const reaxStore = {
+        reduxStore,
+        commit: (action, payload = null) => reduxStore.dispatch(actions[action](payload)),
+        getters,
+        registerModule: (moduleKey, module) => {
+            parseModule(module, moduleKey);
+            reduxStore.replaceReducer(combineReducers(reducersObject));
+            reaxStore.getters = { ...reaxStore.getters, ...getters };
+        },
+        unregisterModule: (moduleKey) => {
+            delete reducersObject[moduleKey];
+            reduxStore.replaceReducer(combineReducers(reducersObject));
+            for (const key in reaxStore.getters) {
+                if (Object.prototype.hasOwnProperty.call(reaxStore.getters, key) &&
+                    key.includes(moduleKey))
+                    delete reaxStore.getters[key];
+            }
+        },
+    };
+    Object.defineProperty(reaxStore, 'state', {
+        get() {
+            const { root, ...rest } = reduxStore.getState();
+            return { ...root, ...rest };
+        },
+        enumerable: true,
+    });
+    return reaxStore;
+}
+
+export { createReaxStore };

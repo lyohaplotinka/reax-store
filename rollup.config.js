@@ -1,8 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "@rollup/plugin-babel";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import {terser} from "rollup-plugin-terser";
 
 export default [
     {
@@ -22,15 +20,9 @@ export default [
             commonjs({
                 extensions: ['.js', '.ts']
             }),
-            babel({
-                babelHelpers: 'bundled',
-            }),
             nodeResolve({
                 browser: false
             }),
-            terser({
-                mangle: true
-            })
         ]
     }
 ]
