@@ -59,9 +59,7 @@ describe('Reax store with dynamic module', () => {
 
     it('Has all required module getters', () => {
         Object.keys(ThirdModule.getters).forEach((key) => {
-            expect(store.getters['ThirdModule/' + key]).toBeInstanceOf(
-                Function,
-            );
+            expect(store.getters['ThirdModule/' + key]).toBeInstanceOf(Function);
         });
     });
 

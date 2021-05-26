@@ -56,9 +56,7 @@ describe('Moduled Reax store', () => {
 
     it('Has all required module getters', () => {
         Object.keys(SecondModule.getters).forEach((key) => {
-            expect(store.getters['SecondModule/' + key]).toBeInstanceOf(
-                Function,
-            );
+            expect(store.getters['SecondModule/' + key]).toBeInstanceOf(Function);
         });
     });
 });

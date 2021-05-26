@@ -1,6 +1,6 @@
 {
     "name": "reax-store",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "React state management with Redux, but similar to Vuex",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -19,6 +19,7 @@
     ],
     "scripts": {
         "build": "rollup -c",
+        "build:min": "MINIFY=true rollup -c",
         "dev": "rollup -c -w",
         "lint": "eslint '{src,provider,useReax,__tests__}/**/*.{js,ts,tsx}' --quiet --fix",
         "test": "jest",

@@ -1,3 +1,6 @@
+### 0.0.7
+* Removed minification from production build (again...)
+
 ### 0.0.6
 * Size reduction;
 * code-sandbox demo established.

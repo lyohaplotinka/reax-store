@@ -3,6 +3,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 
+const minify = process.env.MINIFY === 'true';
+
 export default [
     {
         input: 'src/index.ts',
@@ -24,9 +26,10 @@ export default [
             nodeResolve({
                 browser: false,
             }),
-            terser({
-                mangle: true,
-            }),
+            minify &&
+                terser({
+                    mangle: true,
+                }),
         ],
     },
 ];
