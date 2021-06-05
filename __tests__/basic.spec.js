@@ -14,11 +14,60 @@ const testStore = {
     },
 };
 
+const testStoreNoGetters = {
+    state: {
+        count: 3,
+    },
+    mutations: {
+        setCount(state, payload) {
+            state.count = payload;
+        },
+    },
+};
+
+const testStoreNoState = {
+    mutations: {
+        setCount(state, payload) {
+            state.count = payload;
+        },
+    },
+    getters: {
+        getCount: (state) => state.count,
+    },
+};
+
+const testStoreNoMutations = {
+    state: {
+        count: 3,
+    },
+    getters: {
+        getCount: (state) => state.count,
+    },
+};
+
 describe('Basic Reax store', () => {
     let store;
 
     it('Exports function', () => {
         expect(createReaxStore).toBeInstanceOf(Function);
+    });
+
+    it('Does not fail if no getters defined', () => {
+        expect(() => {
+            let storeNoGetters = createReaxStore(testStoreNoGetters);
+        }).not.toThrowError();
+    });
+
+    it('Does not fail if no mutations defined', () => {
+        expect(() => {
+            let storeNoMutations = createReaxStore(testStoreNoMutations);
+        }).not.toThrowError();
+    });
+
+    it('Fails if no "state" key in descriptor', () => {
+        expect(() => {
+            let storeNoState = createReaxStore(testStoreNoState);
+        }).toThrowError();
     });
 
     it('Creates store instance', () => {

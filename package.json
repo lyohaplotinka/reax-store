@@ -1,6 +1,6 @@
 {
     "name": "reax-store",
-    "version": "0.0.7",
+    "version": "0.1.0",
     "description": "React state management with Redux, but similar to Vuex",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -56,6 +56,8 @@
         "react-redux": "^7.2.4",
         "redux": "^4.1.0",
         "rollup": "^2.49.0",
+        "rollup-plugin-cleaner": "^1.0.0",
+        "rollup-plugin-cleanup": "^3.2.1",
         "rollup-plugin-terser": "^7.0.2",
         "tslib": "^2.2.0",
         "typescript": "^4.2.4"

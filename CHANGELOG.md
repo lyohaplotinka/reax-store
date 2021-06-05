@@ -1,3 +1,8 @@
+### 0.1.0
+* Size reduction;
+* not throw error if no getters or mutations provided;
+* throws an error if no state key defined.
+
 ### 0.0.7
 * Removed minification from production build (again...)
 

@@ -9,8 +9,8 @@ export interface ActionGeneratorResult {
 export declare type Action = (payload: any) => ActionGeneratorResult;
 export interface StoreDescriptor {
     state: any;
-    mutations: Record<string, MutationFunction<any>>;
-    getters: Record<string, any>;
+    mutations?: Record<string, MutationFunction<any>>;
+    getters?: Record<string, any>;
     modules?: Record<string, StoreDescriptor>;
 }
 export interface ReaxStore {

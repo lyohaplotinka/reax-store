@@ -2,6 +2,8 @@ import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import cleanup from 'rollup-plugin-cleanup';
+import cleaner from 'rollup-plugin-cleaner';
 
 const minify = process.env.MINIFY === 'true';
 
@@ -17,6 +19,9 @@ export default [
             },
         ],
         plugins: [
+            cleaner({
+                targets: ['./dist'],
+            }),
             typescript({
                 outDir: 'dist',
             }),
@@ -30,6 +35,7 @@ export default [
                 terser({
                     mangle: true,
                 }),
+            cleanup(),
         ],
     },
 ];
