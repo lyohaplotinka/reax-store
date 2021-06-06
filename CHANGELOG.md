@@ -1,3 +1,6 @@
+### 0.1.1
+* Removed src from npmignore.
+
 ### 0.1.0
 * Size reduction;
 * not throw error if no getters or mutations provided;
